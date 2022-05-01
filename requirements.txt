@@ -1,0 +1,1 @@
+#TODO: @Piotrek add requirements.txt like Django version, youtube-dl etc.
