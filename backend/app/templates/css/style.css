@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+h1{
+    position:absolute;
+    top: 152px;
+    left: 640px;
+    width: 680px;
+    height: 82px;
+    text-align: left;
+    font-family: "Open Sans, Condensed Light", sans-serif;
+    font-size: 40px;
+    letter-spacing: 9px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+form.search-section{
+    position:absolute;
+    top: 508px;
+    left: 883px;
+    color: black;
+}
+input{
+    position:absolute;
+    width: 600px;
+    height: 81px;
+    color: black;
+    border: none;
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font: normal normal 300 24px/33px;
+    letter-spacing: 3.6px;
+    color: #000000;
+    opacity: 1;
+    border-radius: 10px;
+
+}
+button[name=settings]{
+    position: absolute;
+    top:90px;
+    left:-20px;
+    font-family: "Open Sans", sans-serif;
+    background: transparent url('../img/button_settings.svg');
+    width: 333px;
+    height: 81px;
+    border: none;
+    margin: 2em;
+}
+button[name=download]{
+    position: absolute;
+    top:90px;
+    left:450px;
+    width: 250px;
+    height: 81px;
+    margin: 2em;
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font: normal normal 300 30px/41px;
+    letter-spacing: 4.5px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+body {
+    background: transparent url('../img/background.svg');
+}
+.bottom-content{
+    position: absolute;
+    top: 949px;
+    left: 845px;
+    width: 240px;
+    height: 33px;
+
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font: normal normal 300 24px/33px;
+    letter-spacing: 3.6px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+

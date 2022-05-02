@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+    <title>DOWNLOADER</title>
+    <h1> POBIERZ WYBRANY FILM </h1>
+</head>
+
+<body>
+    <div class="container">
+        <div class="URL-add-container">
+            <form class="search-section" action="submit-link" method="GET">
+                <input name="search" type="text" placeholder="Wklej link prowadzący do filmu...">
+                <button name="settings"></button>
+                <button type ="submit" name="download">TODO:ANIMACJA</button>
+            </form>
+        </div>
+    </div>
+    <div class="bottom-content">
+        <b>lossless compression</b>
+    </div>
+</body>
