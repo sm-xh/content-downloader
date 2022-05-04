@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} Download the video {% endblock %}
+{% block header %} OPCJE POBIERANIA {% endblock %}
+
+{% block content %}
+<div class="wrapper">
+    <div class="form">
+        <div class="inputfield">
+            <label>FORMAT</label>
+            <div class="custom_select">
+              <select>
+                <option value="MP3">MP3</option>
+                <option value="MP4">MP4</option>
+              </select>
+            </div>
+         </div> 
+        <div class="inputfield">
+          <label>ROZDZIELCZOŚĆ</label>
+          <div class="custom_select">
+            <select>
+                {% for i in resolution_list %}
+                <option value="{{ i }}">{{ i }}</option>
+                {% endfor %}
+            </select>
+          </div>
+       </div> 
+      <div class="metadata">
+        <label>METADANE</label>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+       </div>
+
+       <form class="download-button">
+        <button type="submit" formaction="./download.html">POBIERZ</button>
+    </form>
+    </div>
+</div>
+{% endblock %}
