@@ -5,22 +5,51 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
-    <title>HOME</title>
-    <h1> POBIERZ WYBRANY FILM </h1>
+    <title>DOWNLOAD</title>
+    <h1> WYBIERZ USTAWIENIA POBIERANIA </h1>
 </head>
 
-<body>
-    <div class="container">
-        <div class="URL-add-container">
-            <form class="search-section">
-                <a href="#">
-                    <input name="search" type="text" placeholder="  Wklej link prowadzący do filmu...">
-                    <button name="continue">KONTYNUUJ</button>
-                </a>
-            </form>
+<div class="wrapper">
+    <div class="title">
+    </div>
+    <div class="form">
+        <div class="inputfield">
+          <label>ROZDZIELCZOŚĆ</label>
+          <div class="custom_select">
+            <select>
+                <option value="2160p">3840 x 2160</option>
+                <option value="1440p">2560 x 1440</option>
+                <option value="1080p">1920 x 1080</option>
+                <option value="720p">1280 x 720</option>
+                <option value="480p">854 x 480</option>
+                <option value="260p">640 x 360</option>
+                <option value="240p">426 x 240</option>
+                <option value="other">other</option>
+            </select>
+          </div>
+       </div> 
+       <div class="inputfield">
+        <label>FORMAT</label>
+        <div class="custom_select">
+          <select>
+            <option value="MP3">MP3</option>
+            <option value="MP4">MP4</option>
+          </select>
         </div>
+     </div> 
+      <div class="metadata">
+        <label>METADANE</label>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+       </div>
+
+       <form class="download-button">
+        <button type="submit" formaction="./download.html">POBIERZ</button>
+    </form>
     </div>
-    <div class="bottom-content">
-        <b>lossless compression</b>
-    </div>
+</div>	
+	
 </body>
+</html>
