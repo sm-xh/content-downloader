@@ -1,3 +1,6 @@
+import mimetypes
+import os
+
 from django.shortcuts import render
 
 # Create your views here.
@@ -7,17 +10,19 @@ import youtube_dl
 from pytube import *
 import re
 
+video_url = ''
+
 
 def home(request):
     return render(request, 'index.html')
 
 
-def download(request):
-    url = request.POST['search']
-    video = YouTube(url)
+def settings(request):
+    global video_url
+    video_url = request.POST['search']
+    video = YouTube(video_url)
 
-    stream = video.streams.all()
-
+    stream = video.streams
     resolution_list = []
 
     for i in stream:  # get list with all resolutions possible
@@ -25,43 +30,41 @@ def download(request):
             resolution_list.append(i.resolution)
     resolution_list = list(dict.fromkeys(resolution_list))  # remove possible duplicates
     resolution_list.sort(reverse=True)
-    return render(request, 'download.html', {'resolution_list': resolution_list})
+    return render(request, 'download.html', {'resolution_list': resolution_list, 'url': video_url})
 
 
-def submit(request):
-    url = request.GET['search']
+def download(request):
+    global video_url
+    file_format = request.POST['select_format']
+    resolution = request.POST['resolution']
+    metadata_status = request.POST.get('meta', 'off')
+    vid = YouTube(video_url)
 
-    ydl_opts = {}
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        meta = ydl.extract_info(
-            url, download=False)
-    video_audio_streams = []
-    for m in meta['formats']:
-        file_size = m['filesize']
-        if file_size is not None:
-            file_size = f'{round(int(file_size) / 1000000, 2)} mb'
+    if metadata_status=='on':
+        metadata = {"title": vid.title, "author": vid.author, "description": vid.description,
+                    "publish_date": str(vid.publish_date), "keywords": vid.keywords, "length": vid.length,
+                    "views": vid.views}
+        # Writing to file
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        with open("metadata.json", "w") as file1:
+            # Writing data to a file
+            file1.write(str(metadata))
+        # Define text file name
+        filename = 'metadata.json'
+        # Define the full file path
+        filepath = BASE_DIR + "\\" + filename
+        # Open the file for reading content
+        path = open(filepath, 'r')
+        # Set the mime type
+        mime_type, _ = mimetypes.guess_type(filepath)
+        # Set the return value of the HttpResponse
+        response = HttpResponse(path, content_type=mime_type)
+        # Set the HTTP header for sending to browser
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
 
-        resolution = 'Audio'
-        if m['height'] is not None:
-            resolution = f"{m['height']}x{m['width']}"
-        video_audio_streams.append({
-            'resolution': resolution,
-            'extension': m['ext'],
-            'file_size': file_size,
-            'video_url': m['url']
-        })
-    video_audio_streams = video_audio_streams[::-1]
-    context = {
-        'title': meta.get('title', None),
-        'streams': video_audio_streams,
-        'description': meta.get('description'),
-        'likes': f'{int(meta.get("like_count", 0)):,}',
-        'dislikes': f'{int(meta.get("dislike_count", 0)):,}',
-        'thumb': meta.get('thumbnails')[3]['url'],
-        'duration': round(int(meta.get('duration', 1)) / 60, 2),
-        'views': f'{int(meta.get("view_count")):,}'
-    }
+    if file_format == "Video":
+        vid.streams.filter(res=resolution).first().download()
+    elif file_format == "Audio":
+        vid.streams.filter(only_audio=True).first().download()
 
-    embed = url.replace('watch?v=', 'embed/')
-    # {% extends 'index.html' %}
-    return render(request, 'video-list.html')
+    return render(request, 'index.html')

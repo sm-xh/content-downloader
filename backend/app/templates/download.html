@@ -6,20 +6,23 @@
 
 {% block content %}
 <div class="wrapper">
-    <div class="form">
+    <div class="title">
+    </div>
+    <form class="form" action="download" method="POST">
+       {% csrf_token %}
         <div class="inputfield">
             <label>FORMAT</label>
             <div class="custom_select">
-              <select>
-                <option value="MP3">MP3</option>
-                <option value="MP4">MP4</option>
+              <select name="select_format" id="select_format">
+                  <option value="Video">Video</option>
+                <option value="Audio">Audio</option>
               </select>
             </div>
          </div> 
         <div class="inputfield">
           <label>ROZDZIELCZOŚĆ</label>
           <div class="custom_select">
-            <select>
+            <select id="resolution" name="resolution">
                 {% for i in resolution_list %}
                 <option value="{{ i }}">{{ i }}</option>
                 {% endfor %}
@@ -29,14 +32,24 @@
       <div class="metadata">
         <label>METADANE</label>
         <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" name="meta">
             <span class="slider round"></span>
           </label>
        </div>
-
-       <form class="download-button">
-        <button type="submit" formaction="./download.html">POBIERZ</button>
+       <div class="download-button">
+        <button type="submit">POBIERZ</button>
+       </div>
     </form>
     </div>
 </div>
+<script>
+document.querySelector('#select_format').onchange = ev => {
+  const value = ev.target.value;
+  if (value === 'Audio') {
+    document.querySelector('#resolution').disabled = true;
+  } else {
+    document.querySelector('#resolution').disabled = false;
+  }
+}
+</script>
 {% endblock %}
