@@ -262,10 +262,69 @@ button:active:after {
     border-radius: 50%;
   }
 
-  .download-button{
+  .button{
       position: absolute;
-      top: 350px;
-      left:900px;
+      top: 51%;
+      left:69%;
+      transform: translate(-50%, -50%);
+      height: 95px;
+      width:360px;
+      background: #983AD8;
+      border-radius: 55px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      overflow: hidden;
+  }
+
+  .button.active {
+    height: 20px;
+    width: 500px;
+  }
+
+  .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    width: 100%;
+    border-radius: 55px;
+    background: #5d0d93;
+  }
+
+  .button.active::before {
+    animation: layer 6s ease-in-out forwards;
+  }
+
+  @keyframes layer {
+    100%{
+      left: 0%;
+    }
+  }
+  .button .content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.1s ease;
+    transition-delay: 0.1s;
+  }
+
+  .button.active .content {
+    transform: translateY(60px);
+  }
+
+  .content i,
+  .content .button-text {
+    color: #fff;
+    font-size: 40px;
+    font-weight: 500;
+  }
+
+  .content .button-text {
+    font-size: 28px;
+    margin-left: 8px;
   }
   
 @media only screen and (max-width: 1112px) {
@@ -317,13 +376,16 @@ button:active:after {
         padding: 40;
     }
 
-    .download-button{
-        top:70%;
-        width: 90%;
-        height: 80%;
-        left:1%;
-        margin: 0;
-        line-height: 1em;
+    .button{
+        top:140%;
+        width: 80%;
+        height: 40%;
+        left:49%;
+    }
+
+    .button.active {
+      height: 20px;
+      width: 300px;
     }
 
 }

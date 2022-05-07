@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
+    <script src="https://kit.fontawesome.com/70bd267ff8.js" crossorigin="anonymous"></script>
     <title>DOWNLOAD</title>
     <h1> WYBIERZ USTAWIENIA POBIERANIA </h1>
 </head>
@@ -45,13 +46,33 @@
           </label>
        </div>
 
-       <div class="download-button">
-        <button type="submit" formaction="./download.html">POBIERZ</button>
-       </div>
+      <div class="button">
+        <div class="content">
+          <i class="fa-regular fa-cloud-arrow-down"></i>
+          <span class="button-text">POBIERZ</span>
+        </div>
+      </div>
     </form>
 </div>	
 <div class="bottom-content">
     <b>lossless compression</b>
 </div>
+
+<script>
+
+  let button = document.querySelector(".button");
+
+  button.addEventListener("click", ()=>{
+    button.classList.add("active");
+
+    setTimeout(()=>{
+      button.classList.remove("active");
+      document.querySelector("i").classList.replace("fa-cloud-arrow-down", "fa-circle-check")
+      document.querySelector(".button-text").innerText = "POBRANO";
+    },6000)
+  })
+
+
+</script>
 </body>
 </html>
