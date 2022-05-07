@@ -30,13 +30,13 @@ h1 {
 
 form.search-section {
     position:absolute;
-    top: 486px;
-    left: 610px;
+    top: 470px;
+    left: 540px;
 }
 
 input {
     position:absolute;
-    width: 736px;
+    width: 850px;
     height: 81px;
 
     border: none;
@@ -45,20 +45,23 @@ input {
     letter-spacing: 3.6px;
     color: #D4D1E5;;
     opacity: 1;
-    border-radius: 20px;
+    border-radius: 55px;
 
 }
 
 button {
     position: absolute;
     top: 100px;
-    left: 140px;
-    width: 302px;
-    height: 81px;
+    left: 350px;
+    transform: translate(-50%, -50%);
+    height: 95px;
+    width:360px;
     font: normal normal 300 30px/41px "Open Sans";
     color: #FFFFFF;
     background: #983AD8 0% 0% no-repeat padding-box;
-    border-radius: 20px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    border-radius: 55px;
+    font-size: 35px;
     opacity: 1;   
     border: none;
     margin: 2em;
@@ -201,7 +204,6 @@ button:active:after {
   .wrapper .form .inputfield .custom_select select:focus{
     border: 1px solid #983AD8;
   }
-  
   
 .switch {
     position: relative;
