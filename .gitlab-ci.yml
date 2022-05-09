@@ -11,8 +11,8 @@ test:
    
     when: on_success
     script:
-        - python manage.py migrate
-        - python manage.py collectstatic --noinput
+        - python backend/manage.py migrate
+        - python backend/manage.py collectstatic --noinput
     only:
         - psmach
 deploy:
