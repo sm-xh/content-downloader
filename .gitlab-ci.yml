@@ -14,16 +14,16 @@ test:
         - python manage.py migrate
         - python manage.py collectstatic --noinput
     only:
-        - master
+        - psmach
 deploy:
     image: ruby:latest
     stage: deploy
     before_script:
         - gem install dpl
     script:
-        - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key:$HEROKU_API_KEY
+        - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     environment:
         name: main
         url: $HEROKU_APP_HOST
     only:
-        - master
+        - psmach
