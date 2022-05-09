@@ -1,6 +1,7 @@
 import mimetypes
 import os
 
+import pytube.metadata
 from django.shortcuts import render
 
 # Create your views here.
@@ -9,7 +10,7 @@ from django.shortcuts import render
 import youtube_dl
 from pytube import *
 import re
-
+pytube.metadata.YouTubeMetadata
 video_url = ''
 
 
