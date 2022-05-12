@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    background: transparent url('../img/background.svg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+h1 {
+    position:absolute;
+    top: 152px;
+    left: 320px;
+    width: 1300px;
+    height: 82px;
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 9px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+form.search-section {
+    position:absolute;
+    top: 486px;
+    left: 610px;
+}
+
+input {
+    position:absolute;
+    width: 736px;
+    height: 81px;
+
+    border: none;
+    text-align: left;
+    font: normal normal 300 24px/33px "Open Sans";
+    letter-spacing: 3.6px;
+    color: #D4D1E5;;
+    opacity: 1;
+    border-radius: 20px;
+
+}
+
+button {
+    position: absolute;
+    top: 100px;
+    left: 140px;
+    width: 302px;
+    height: 81px;
+    font: normal normal 300 30px/41px "Open Sans";
+    color: #FFFFFF;
+    background: #983AD8 0% 0% no-repeat padding-box;
+    border-radius: 20px;
+    opacity: 1;   
+    border: none;
+    margin: 2em;
+    cursor:pointer;
+}
+
+button:hover {
+    transition-duration: 0.1s;
+    background-color: #d392ff;
+}
+
+button:after {
+    content:"";
+    display:block;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity:0;
+    transition: all 0.5s;
+    box-shadow: 0 0 40px 40px white;
+}
+
+button:active:after {
+    box-shadow: 0 0 0 0 #d392ff;
+    position: absolute;
+    border-radius: 4em;
+    left: 0;
+    top:0;
+    opacity: 1;
+    transition: 1s;
+}
+
+.bottom-content {
+    position: absolute;
+    top: 1000px;
+    left: 830px;
+    width: 270px;
+    height: 33px;
+
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font: normal normal 300 24px/33px;
+    letter-spacing: 3.6px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.wrapper{
+    max-width: 500px;
+    width: 100%;
+    background: #fff;
+    margin: 450px;
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.125);
+    border-radius: 11px;
+    padding: 30px;
+  }
+  
+  .wrapper .form{
+    width: 100%;
+  }
+  
+  .wrapper .form .inputfield{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .wrapper .form .inputfield label{
+     width: 200px;
+     color: #757575;
+     margin-right: 10px;
+    font-size: 14px;
+  }
+
+  .wrapper .form .metadata{
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+
+  .wrapper .form .metadata label{
+    color: #757575;
+    margin-right: 57px;
+    font-size: 14px;
+ }
+  
+  .wrapper .form .inputfield .input,
+  .wrapper .form .inputfield .textarea{
+    width: 100%;
+    outline: none;
+    border: 1px solid #d5dbd9;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+  
+  .wrapper .form .inputfield .textarea{
+    width: 100%;
+    height: 125px;
+    resize: none;
+  }
+  
+  .wrapper .form .inputfield .custom_select{
+    position: relative;
+    width: 100%;
+    height: 37px;
+  }
+  
+  .wrapper .form .inputfield .custom_select:before{
+    content: "";
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    border: 8px solid;
+    border-color: #d5dbd9 transparent transparent transparent;
+    pointer-events: none;
+  }
+  
+  .wrapper .form .inputfield .custom_select select{
+    -webkit-appearance: none;
+    -moz-appearance:   none;
+    appearance:        none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    border: 0px;
+    padding: 8px 10px;
+    font-size: 15px;
+    border: 1px solid #d5dbd9;
+    border-radius: 3px;
+  }
+  
+  
+  .wrapper .form .inputfield .input:focus,
+  .wrapper .form .inputfield .textarea:focus,
+  .wrapper .form .inputfield .custom_select select:focus{
+    border: 1px solid #983AD8;
+  }
+  
+  
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #983AD8;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #983AD8;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  .download-button{
+      position: absolute;
+      top: 350px;
+      left:900px;
+  }
+  
+@media only screen and (max-width: 1112px) {
+
+    h1 {
+        top:20%;
+        left:2%;
+        width:100%;
+        height: 100%;
+        font-size: 14px;
+    }
+    
+    form.search-section {
+        flex-direction: column;
+        margin: auto;
+        top:43%;
+        left:0;
+        width:90%;
+        height: 25%;
+    }
+
+    input {
+        left:5%;
+        width:100%;
+        height: 35%;
+        font: normal normal 300 15px/10px "Open Sans";
+    }
+
+    button {
+        left:22%;
+        width:50%;
+        height: 30%;
+        margin-top: 1px;
+        font: normal normal 300 15px/10px "Open Sans";
+    }
+
+    .bottom-content {
+        top:90%;
+        left:24%;
+        width:100%;
+        height: 100%;
+        font-size: 14px;
+    }
+
+    .wrapper {
+        position: relative;
+        top:280px;
+        margin:0;
+        padding: 40;
+    }
+
+    .download-button{
+        top:70%;
+        width: 90%;
+        height: 80%;
+        left:1%;
+        margin: 0;
+        line-height: 1em;
+    }
+
+}
