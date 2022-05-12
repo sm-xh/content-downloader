@@ -46,6 +46,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'django_content_downloader.urls'
@@ -113,6 +115,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
