@@ -72,7 +72,8 @@ WSGI_APPLICATION = 'django_content_downloader.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-
+    'default': {
+    }
 }
 
 # Password validation
