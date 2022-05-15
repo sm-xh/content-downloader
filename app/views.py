@@ -62,9 +62,11 @@ def download(request):
         # Set the HTTP header for sending to browser
         response['Content-Disposition'] = "attachment; filename=%s" % filename
 
+    path = os.path.expanduser("~") + "/Downloads/"
+
     if file_format == "Video":
-        vid.streams.filter(res=resolution).first().download()
+        vid.streams.filter(res=resolution).first().download(path)
     elif file_format == "Audio":
-        vid.streams.filter(only_audio=True).first().download()
+        vid.streams.filter(only_audio=True).first().download(path)
 
     return render(request, 'index.html')
