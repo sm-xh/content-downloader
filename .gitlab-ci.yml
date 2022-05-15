@@ -14,7 +14,7 @@ test:
         - python backend/manage.py migrate
         - python backend/manage.py collectstatic --noinput
     only:
-        - psmach
+        - devops/psmach
 deploy:
     image: ruby:latest
     stage: deploy
@@ -26,4 +26,4 @@ deploy:
         name: main
         url: $HEROKU_APP_HOST
     only:
-        - psmach
+        - devops/psmach
