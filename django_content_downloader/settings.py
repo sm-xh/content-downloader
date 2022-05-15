@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-(3g8lqh5g9k*2rr(gsgsy4jqgm^1vh0c2kyamx(5phy30nvefb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', 'content-downloader.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'content-downloader.herokuapp.com']
 
 # Application definition
 
@@ -119,10 +119,11 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#remember to adjust for heroku
+STATIC_ROOT = os.path.join(BASE_DIR, 'app/static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    #os.path.join(BASE_DIR, 'static'),
 )
 
 # Default primary key field type
