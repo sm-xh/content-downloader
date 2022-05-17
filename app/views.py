@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from pytube import *
 import re
+
 pytube.metadata.YouTubeMetadata
 video_url = ''
 
@@ -40,7 +41,7 @@ def download(request):
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    if metadata_status=='on':
+    if metadata_status == 'on':
         metadata = {"title": vid.title, "author": vid.author, "description": vid.description,
                     "publish_date": str(vid.publish_date), "keywords": vid.keywords, "length": vid.length,
                     "views": vid.views}
@@ -62,11 +63,9 @@ def download(request):
         # Set the HTTP header for sending to browser
         response['Content-Disposition'] = "attachment; filename=%s" % filename
 
-    path = os.path.expanduser("~") + "/Downloads/"
-
     if file_format == "Video":
-        vid.streams.filter(res=resolution).first().download(path)
+        vid.streams.filter(res=resolution).first().download()
     elif file_format == "Audio":
-        vid.streams.filter(only_audio=True).first().download(path)
+        vid.streams.filter(only_audio=True).first().download()
 
     return render(request, 'index.html')
