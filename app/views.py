@@ -1,14 +1,14 @@
-import mimetypes
-import os
-
-import pytube.metadata
-from django.shortcuts import render
-
-# Create your views here.
 from django.http import HttpResponse
 from django.shortcuts import render
+
+import mimetypes
+import os
+import pytube.metadata
+from pathlib import Path
 from pytube import *
-import re
+import ffmpeg
+import subprocess
+
 
 pytube.metadata.YouTubeMetadata
 video_url = ''
@@ -36,8 +36,8 @@ def settings(request):
 
 def download(request):
     global video_url
+    print(video_url)
     file_format = request.POST['select_format']
-    resolution = request.POST['resolution']
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
@@ -46,14 +46,12 @@ def download(request):
                     "publish_date": str(vid.publish_date), "keywords": vid.keywords, "length": vid.length,
                     "views": vid.views}
         # Writing to file
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        with open("metadata.json", "w") as file1:
+        filename = 'metadata.json'
+        filepath = "files\\" + filename
+        with open(filename+filepath, "w") as file1:
             # Writing data to a file
             file1.write(str(metadata))
-        # Define text file name
-        filename = 'metadata.json'
-        # Define the full file path
-        filepath = BASE_DIR + "\\" + filename
+
         # Open the file for reading content
         path = open(filepath, 'r')
         # Set the mime type
@@ -62,10 +60,35 @@ def download(request):
         response = HttpResponse(path, content_type=mime_type)
         # Set the HTTP header for sending to browser
         response['Content-Disposition'] = "attachment; filename=%s" % filename
+        path.close()
+        os.remove(filepath)
 
     if file_format == "Video":
-        vid.streams.filter(res=resolution).first().download()
-    elif file_format == "Audio":
-        vid.streams.filter(only_audio=True).first().download()
+        resolution = request.POST['resolution']
+        vid.streams.filter(res=resolution).first().download("files")
+        filename = vid.title + ".mp4"
 
-    return render(request, 'index.html')
+    elif file_format == "Audio":
+        vid.streams.filter(only_audio=True).first().download("files")
+        # running ffmpeg on downloaded file
+        filename_mp4 = 'files\\'+vid.title+".mp4"
+        filename_mp3 = 'files\\'+vid.title+".mp3"
+        cmd = "ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3)
+        subprocess.call("ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3))
+        # changing filename
+        p = Path('files\\'+vid.title+'.mp4')
+        p.rename(p.with_suffix('.mp3'))
+        filename = vid.title + ".mp3"
+
+    #mime_type, _ = mimetypes.guess_type("files\\"+filename)
+    path = open("files\\"+filename, 'rb')
+    # Set the return value of the HttpResponse
+    if file_format == "Video":
+        response = HttpResponse(path, content_type="video/mp4")
+    elif file_format == "Audio":
+        response = HttpResponse(path, content_type="audio/mpeg")
+    # Set the HTTP header for sending to browser
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    path.close()
+    os.remove("files\\"+filename)
+    return response
