@@ -42,7 +42,7 @@ def download(request):
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    filespath = os.path.join(BASE_DIR, 'files\\')
+    filespath = os.path.join(BASE_DIR, 'files/')
 
     if metadata_status == 'on':
         metadata = {"title": vid.title, "author": vid.author, "description": vid.description,
