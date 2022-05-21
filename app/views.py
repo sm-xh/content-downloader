@@ -47,7 +47,7 @@ def download(request):
                     "views": vid.views}
         # Writing to file
         filename = 'metadata.json'
-        filepath = "files\\" + filename
+        filepath = "app\\files\\" + filename
         with open(filename+filepath, "w") as file1:
             # Writing data to a file
             file1.write(str(metadata))
@@ -71,8 +71,8 @@ def download(request):
     elif file_format == "Audio":
         vid.streams.filter(only_audio=True).first().download("files")
         # running ffmpeg on downloaded file
-        filename_mp4 = 'files\\'+vid.title+".mp4"
-        filename_mp3 = 'files\\'+vid.title+".mp3"
+        filename_mp4 = 'app\\files\\'+vid.title+".mp4"
+        filename_mp3 = 'app\\files\\'+vid.title+".mp3"
         cmd = "ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3)
         subprocess.call("ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3))
         # changing filename
@@ -81,7 +81,7 @@ def download(request):
         filename = vid.title + ".mp3"
 
     #mime_type, _ = mimetypes.guess_type("files\\"+filename)
-    path = open("files\\"+filename, 'rb')
+    path = open("app\\files\\"+filename, 'rb')
     # Set the return value of the HttpResponse
     if file_format == "Video":
         response = HttpResponse(path, content_type="video/mp4")
@@ -90,5 +90,5 @@ def download(request):
     # Set the HTTP header for sending to browser
     response['Content-Disposition'] = "attachment; filename=%s" % filename
     path.close()
-    os.remove("files\\"+filename)
+    os.remove("app\\files\\"+filename)
     return response
