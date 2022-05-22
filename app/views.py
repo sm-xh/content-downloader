@@ -45,8 +45,8 @@ def download(request):
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    filespath = os.path.join(BASE_DIR, 'files/')
-
+    filespath = os.path.join(BASE_DIR)
+    print(filespath)
     # section for downloading the
     if file_format == "Video":
         resolution = request.POST['resolution']
