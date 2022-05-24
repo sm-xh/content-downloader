@@ -39,8 +39,7 @@ def settings(request):
 def download(request):
     global video_url
 
-    filespath = os.path.dirname(os.path.abspath(__file__))
-    filespath = os.path.join(filespath, "/app/files/")
+    filespath = ''
 
     file_format = request.POST['select_format']
     metadata_status = request.POST.get('meta', 'off')
