@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django_content_downloader.settings import BASE_DIR
 
 import mimetypes
 import os
@@ -11,8 +12,6 @@ from zipfile import ZipFile
 
 import ffmpeg
 import subprocess
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 video_url = ''
 
@@ -39,12 +38,13 @@ def settings(request):
 
 def download(request):
     global video_url
-    print(video_url)
+
+    filespath = os.path.join(BASE_DIR, "/app/files/")
+
     file_format = request.POST['select_format']
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    filespath = os.path.join(BASE_DIR, '/app/files/')
     print(filespath)
 
     # section for downloading the file
