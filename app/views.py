@@ -52,21 +52,15 @@ def download(request):
 
     # section for downloading the file
     if file_format == "Video":
+        ext = ".mp4"
+        filename = "filename" + ".mp4"
         resolution = request.POST['resolution']
-        vid.streams.filter(res=resolution).first().download(output_path=filespath, filename="downloaded.mp3")
-        filename = "downloaded" + ".mp3"
+        vid.streams.filter(res=resolution).first().download(output_path=filespath, filename=filename)
 
     elif file_format == "Audio":
-        vid.streams.filter(only_audio=True).first().download(output_path=filespath, title=filename)
-        # running ffmpeg on downloaded file
-        filename_mp4 = filespath + vid.title + ".mp4"
-        filename_mp3 = filespath + vid.title + ".mp3"
-        cmd = "ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3)
-        subprocess.call(cmd)
-        # changing filename
-        p = Path(filespath + vid.title + '.mp4')
-        p.rename(p.with_suffix('.mp3'))
-        filename = vid.title + ".mp3"
+        ext = ".mp3"
+        filename = "filename" + ".mp3"
+        vid.streams.filter(only_audio=True).first().download(output_path=filespath, filename=filename)
 
     if metadata_status == 'on':
         metadata = {"title": vid.title, "author": vid.author, "description": vid.description,
@@ -109,7 +103,7 @@ def download(request):
         elif file_format == "Audio":
             response = HttpResponse(path, content_type="audio/mpeg")
         # Set the HTTP header for sending to browser
-        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        response['Content-Disposition'] = "attachment; filename=%s" % (vid.title + ext)
         path.close()
         os.remove(filespath + filename)
         return response
