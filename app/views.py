@@ -39,7 +39,8 @@ def settings(request):
 def download(request):
     global video_url
 
-    filespath = os.path.join(BASE_DIR, "/app/files/")
+    filespath = os.path.dirname(os.path.abspath(__file__))
+    filespath = os.path.join(filespath, "/app/files/")
 
     file_format = request.POST['select_format']
     metadata_status = request.POST.get('meta', 'off')
@@ -56,8 +57,8 @@ def download(request):
     elif file_format == "Audio":
         vid.streams.filter(only_audio=True).first().download(filespath)
         # running ffmpeg on downloaded file
-        filename_mp4 = filespath + vid.title + ".mp4"
-        filename_mp3 = filespath + vid.title + ".mp3"
+        filename_mp4 = vid.title + ".mp4"
+        filename_mp3 = vid.title + ".mp3"
         cmd = "ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3)
         subprocess.call(cmd)
         # changing filename
