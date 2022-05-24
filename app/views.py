@@ -14,7 +14,6 @@ import subprocess
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-pytube.metadata.YouTubeMetadata
 video_url = ''
 
 
@@ -45,9 +44,10 @@ def download(request):
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    filespath = os.path.join(BASE_DIR)
+    filespath = os.path.join(BASE_DIR, '/files/')
     print(filespath)
-    # section for downloading the
+
+    # section for downloading the file
     if file_format == "Video":
         resolution = request.POST['resolution']
         vid.streams.filter(res=resolution).first().download(filespath)
@@ -56,12 +56,12 @@ def download(request):
     elif file_format == "Audio":
         vid.streams.filter(only_audio=True).first().download(filespath)
         # running ffmpeg on downloaded file
-        filename_mp4 = filespath+vid.title+".mp4"
-        filename_mp3 = filespath+vid.title+".mp3"
+        filename_mp4 = filespath + vid.title + ".mp4"
+        filename_mp3 = filespath + vid.title + ".mp3"
         cmd = "ffmpeg -i {} -vn {}".format(filename_mp4, filename_mp3)
         subprocess.call(cmd)
         # changing filename
-        p = Path(filespath+vid.title+'.mp4')
+        p = Path(filespath + vid.title + '.mp4')
         p.rename(p.with_suffix('.mp3'))
         filename = vid.title + ".mp3"
 
@@ -84,7 +84,7 @@ def download(request):
         zipObj.close()
 
         # Open the file for reading content
-        path = open(filespath+'content.zip', 'rb')
+        path = open(filespath + 'content.zip', 'rb')
         # Set the return value of the HttpResponse
         response = HttpResponse(path, content_type='application/x-zip-compressed')
 
@@ -92,14 +92,14 @@ def download(request):
         response['Content-Disposition'] = "attachment; filename=%s" % zip_name
 
         path.close()
-        os.remove(filespath + meta_name)
-        os.remove(filespath + zip_name)
-        os.remove(filespath + filename)
+        #os.remove(filespath + meta_name)
+        #os.remove(filespath + zip_name)
+        #os.remove(filespath + filename)
 
         # todo: change metadata to seperate download button
         return response
     else:
-        path = open(filespath+filename, 'rb')
+        path = open(filespath + filename, 'rb')
         # Set the return value of the HttpResponse
         if file_format == "Video":
             response = HttpResponse(path, content_type="video/mp4")
@@ -108,5 +108,5 @@ def download(request):
         # Set the HTTP header for sending to browser
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         path.close()
-        os.remove(filespath+filename)
+        #os.remove(filespath + filename)
         return response
