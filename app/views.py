@@ -44,7 +44,7 @@ def download(request):
     metadata_status = request.POST.get('meta', 'off')
     vid = YouTube(video_url)
 
-    filespath = os.path.join(BASE_DIR, '/files/')
+    filespath = os.path.join(BASE_DIR, '/files')
     print(filespath)
 
     # section for downloading the file
@@ -92,9 +92,9 @@ def download(request):
         response['Content-Disposition'] = "attachment; filename=%s" % zip_name
 
         path.close()
-        #os.remove(filespath + meta_name)
-        #os.remove(filespath + zip_name)
-        #os.remove(filespath + filename)
+        os.remove(filespath + meta_name)
+        os.remove(filespath + zip_name)
+        os.remove(filespath + filename)
 
         # todo: change metadata to seperate download button
         return response
@@ -108,5 +108,5 @@ def download(request):
         # Set the HTTP header for sending to browser
         response['Content-Disposition'] = "attachment; filename=%s" % filename
         path.close()
-        #os.remove(filespath + filename)
+        os.remove(filespath + filename)
         return response
