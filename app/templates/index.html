@@ -12,14 +12,16 @@
 
 <body>
 {% block content %}
+    <h3>{{ form.errors.youtube_url }}</h3>
     <div class="container">
         <div class="URL-add-container">
             <form class="search-section" action="settings" method="POST">
                 {% csrf_token %}
-                <input name="search" type="text" placeholder="&emsp;Wklej link prowadzący do filmu...">
+                {{ form.youtube_url }}
                 <button type="submit">KONTYNUUJ</button>
             </form>
         </div>
+
     </div>
 {% endblock %}
     <div class="bottom-content">

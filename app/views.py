@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django_content_downloader.settings import BASE_DIR
+from .forms import YouTubeForm
 
 import mimetypes
 import os
@@ -17,23 +18,38 @@ video_url = ''
 
 
 def home(request):
-    return render(request, 'index.html')
+    form = YouTubeForm
+    context = {'form': form}
+    return render(request, 'index.html', context)
 
 
 def settings(request):
     global video_url
-    video_url = request.POST['search']
-    video = YouTube(video_url)
+    if request.method == 'POST':
+        form = YouTubeForm(request.POST)
+        if form.is_valid():
 
-    stream = video.streams
-    resolution_list = []
+            video_url = form.cleaned_data['youtube_url']
+            video = YouTube(video_url)
 
-    for i in stream:  # get list with all resolutions possible
-        if i.resolution is not None:
-            resolution_list.append(i.resolution)
-    resolution_list = list(dict.fromkeys(resolution_list))  # remove possible duplicates
-    resolution_list.sort(reverse=True)
-    return render(request, 'download.html', {'resolution_list': resolution_list, 'url': video_url})
+            stream = video.streams
+            resolution_list = []
+
+            for i in stream:  # get list with all resolutions possible
+                if i.resolution is not None:
+                    resolution_list.append(i.resolution)
+            resolution_list = list(dict.fromkeys(resolution_list))  # remove possible duplicates
+            resolution_list.sort(reverse=True)
+            return render(request, 'download.html', {'resolution_list': resolution_list, 'url': video_url})
+
+    else:
+        form = YouTubeForm()
+
+    context = {'form': form}
+
+    return render(request, 'index.html', context)
+
+
 
 
 def download(request):
