@@ -13,43 +13,55 @@
         <div class="inputfield">
             <label>FORMAT</label>
             <div class="custom_select">
-              <select name="select_format" id="select_format">
-                  <option value="Video">Video</option>
-                <option value="Audio">Audio</option>
-              </select>
+              {{ form.select_format }}
             </div>
          </div> 
         <div class="inputfield">
           <label>ROZDZIELCZOŚĆ</label>
           <div class="custom_select">
-            <select id="resolution" name="resolution">
-                {% for i in resolution_list %}
-                <option value="{{ i }}">{{ i }}</option>
-                {% endfor %}
-            </select>
+            {{ form.select_resolution }}
           </div>
        </div> 
       <div class="metadata">
         <label>METADANE</label>
         <label class="switch">
-            <input type="checkbox" name="meta">
+            {{ form.select_metadata }}
             <span class="slider round"></span>
           </label>
        </div>
-       <div class="download-button">
-        <button type="submit">POBIERZ</button>
-       </div>
+        <button class="button" type="submit">
+        <div class="content">
+          <i class="fa-regular fa-circle-down"></i>
+          <span class="button-text">POBIERZ</span>
+        </div>
+      </button>
+
     </form>
     </div>
 </div>
+
+
 <script>
-document.querySelector('#select_format').onchange = ev => {
-  const value = ev.target.value;
-  if (value === 'Audio') {
-    document.querySelector('#resolution').disabled = true;
-  } else {
-    document.querySelector('#resolution').disabled = false;
-  }
-}
+    document.querySelector('#id_select_format').onchange = ev => {
+      const value = ev.target.value;
+      if (value === 'Audio') {
+        document.querySelector('#id_select_resolution').disabled = true;
+      } else {
+        document.querySelector('#id_select_resolution').disabled = false;
+      }
+    }
+
+  let button = document.querySelector(".button");
+
+  button.addEventListener("click", ()=>{
+    button.classList.add("active");
+
+    setTimeout(()=>{
+      button.classList.remove("active");
+      document.querySelector("i").classList.replace("fa-circle-down", "fa-circle-check")
+      document.querySelector(".button-text").innerText = "POBRANO";
+    },6000)
+  })
+
 </script>
 {% endblock %}
