@@ -33,6 +33,7 @@ form.search-section {
     position:absolute;
     top: 470px;
     left: 540px;
+    padding-left: 20px;
 }
 
 input {

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django_content_downloader.settings import BASE_DIR
-from .forms import YouTubeForm
+from .forms import YouTubeURLForm
 from .forms import YouTubeDownloadForm
 
 import mimetypes
@@ -19,7 +19,7 @@ video_url = ''
 
 
 def home(request):
-    form = YouTubeForm
+    form = YouTubeURLForm
     context = {'form': form}
     return render(request, 'index.html', context)
 
@@ -28,7 +28,7 @@ def settings(request):
     global video_url
 
     if request.method == 'POST':
-        form = YouTubeForm(request.POST)
+        form = YouTubeURLForm(request.POST)
         if form.is_valid():
 
             video_url = form.cleaned_data['youtube_url']
@@ -54,7 +54,7 @@ def settings(request):
             return render(request, 'download.html', context)
 
     else:
-        form = YouTubeForm()
+        form = YouTubeURLForm()
 
     context = {'form': form}
 
@@ -117,7 +117,6 @@ def download(request):
             os.remove(filespath + zip_name)
             os.remove(filespath + filename)
 
-            # todo: change metadata to seperate download button
             return response
         else:
             path = open(filespath + filename, 'rb')
@@ -131,3 +130,10 @@ def download(request):
             path.close()
             os.remove(filespath + filename)
             return response
+
+    else:
+        form = YouTubeForm()
+
+    context = {'form': form}
+
+    return render(request, 'index.html', context)

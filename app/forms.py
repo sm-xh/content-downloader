@@ -1,10 +1,12 @@
 from django.forms import ModelForm
 from django import forms
+from pytube import YouTube
+from pytube import exceptions
 
 import re
 
 
-class YouTubeForm(forms.Form):
+class YouTubeURLForm(forms.Form):
     youtube_url = forms.URLField(label=False,
                                  widget=forms.TextInput(
                                      attrs={'placeholder': '\tPaste youtube url.', 'name': 'search'}),
@@ -12,19 +14,23 @@ class YouTubeForm(forms.Form):
 
     def clean_youtube_url(self):
         data = self.cleaned_data['youtube_url']
-        if not YouTubeForm.validate_link(data):
-            raise forms.ValidationError('Invalid youtube url', code='invalid')
+        try:
+            video = YouTube(data).streams
+        except exceptions.PytubeError as err:
+            raise forms.ValidationError(err, code='invalid_url')
 
         return data
 
     @staticmethod
     def validate_link(url):
+        # 1st check if url is youtube url
         youtube_regex = (
             r'(https?://)?(www\.)?'
             '(youtube|youtu|youtube-nocookie)\.(com|be)/'
             '(watch\?v=|embed/|v/|.+\?v=)?([^&=%\?]{11})')
 
         youtube_regex_match = re.match(youtube_regex, url)
+
         if youtube_regex_match:
             return youtube_regex_match
 
@@ -43,3 +49,18 @@ class YouTubeDownloadForm(forms.Form):
         super(YouTubeDownloadForm, self).__init__(*args, **kwargs)
         self.fields['select_resolution'] = forms.ChoiceField(choices=res_list)
 
+    def clean_select_format(self):
+        data = self.cleaned_data['select_format']
+        allowed_formats = ['Audio', 'Video']
+        if data not in allowed_formats:
+            raise forms.ValidationError("invalid format", code='invalid_format')
+
+        return data
+
+    def clean_select_resolution(self):
+        data = self.cleaned_data['select_resolution']
+        allowed_resolution = [('1080p', '1080p'), ('440p', '440p'), ('144p', '144p'), ('2160p', '2160p'),
+                              ('240p', '240p'),
+                              ('360p', '360p'), ('480p', '480p'), ('720p', '720p')]
+        if data not in allowed_resolution:
+            raise forms.ValidationError("invalid resolution", code='invalid_resolution')
