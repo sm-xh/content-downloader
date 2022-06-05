@@ -27,6 +27,7 @@ def home(request):
 def settings(request):
     global video_url
 
+
     if request.method == 'POST':
         form = YouTubeURLForm(request.POST)
         if form.is_valid():
@@ -50,7 +51,6 @@ def settings(request):
 
             form_download = YouTubeDownloadForm(resolution_list)
             context = {'form': form_download, 'resolution_list': resolution_list, 'url': video_url}
-
             return render(request, 'download.html', context)
 
     else:
@@ -58,12 +58,14 @@ def settings(request):
 
     context = {'form': form}
 
-    return render(request, 'index.html', context)
+    return render(request, 'index.html', context, status=422)
 
 
-def download(request):
+def download(request, url=video_url):
     if request.method == 'POST':
         global video_url
+        if video_url is None or video_url == '':
+            video_url = url
 
         filespath = os.path.dirname(os.path.abspath(__file__))
         filespath = os.path.join(BASE_DIR, "/app/files/")
@@ -132,8 +134,8 @@ def download(request):
             return response
 
     else:
-        form = YouTubeForm()
+        form = YouTubeDownloadForm()
 
     context = {'form': form}
 
-    return render(request, 'index.html', context)
+    return render(request, 'index.html', contex, status=422)

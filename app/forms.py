@@ -59,8 +59,10 @@ class YouTubeDownloadForm(forms.Form):
 
     def clean_select_resolution(self):
         data = self.cleaned_data['select_resolution']
-        allowed_resolution = [('1080p', '1080p'), ('440p', '440p'), ('144p', '144p'), ('2160p', '2160p'),
-                              ('240p', '240p'),
-                              ('360p', '360p'), ('480p', '480p'), ('720p', '720p')]
+        #  [('1080p', '1080p'), ('440p', '440p'), ('144p', '144p'), ('2160p', '2160p'),
+        #                       ('240p', '240p'),
+        #                       ('360p', '360p'), ('480p', '480p'), ('720p', '720p')]
+        allowed_resolution = ['1080p', '440p', '144p', '2160p', '240p', '360p', '480p', '720p']
+
         if data not in allowed_resolution:
             raise forms.ValidationError("invalid resolution", code='invalid_resolution')
