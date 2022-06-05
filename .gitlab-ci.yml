@@ -13,9 +13,7 @@ test:
     script:
         - python manage.py migrate
         - python manage.py collectstatic --noinput
-        - python manage.py runserver
         - python manage.py test app
-        - pkill -f runserver
     only:
         - psmach
 deploy:

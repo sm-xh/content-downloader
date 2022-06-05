@@ -1,5 +1,5 @@
 Django~=4.0.4
--e git+https://github.com/kinshuk-h/pytube.git#egg=pytube
+-e git+https://github.com/sm-xh/pytube.git#egg=pytube
 gunicorn
 whitenoise
 ffmpeg
