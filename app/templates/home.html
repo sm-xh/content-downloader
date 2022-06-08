@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="../static/css/style.css">
+      <script src="https://kit.fontawesome.com/70bd267ff8.js" crossorigin="anonymous"></script>
+      <title>HOME</title>
+      <h1> POBIERZ WYBRANY FILM </h1>
+   </head>
+   <body>
+      <div class="invalid_url hide">
+         <span class="fa-solid fa-circle-exclamation"></span>
+         <span class="msg">Invalid URL, please paste another.</span>
+         <div class="close">
+             <span class="fas fa-times"></span>
+         </div>
+      </div>
+      <div class="container">
+        <div class="URL-add-container">
+            <form class="search-section">
+                <input name="search" type="text" id='link_yt' placeholder="  Wklej link prowadzący do filmu..." required>
+                <button type="submit" >KONTYNUUJ</button>
+            </form>
+        </div>
+      </div>
+    <div class="bottom-content">
+        <b>lossless compression</b>
+    </div>
+      <script>
+      const link_yt = document.getElementById('link_yt');
+       $('button').click(function(){
+         if (link_yt.value === 'abc' || link_yt.value == null){
+             //tutaj masz warunek na wartość w inpucie, zostawiłam jako puste,
+             //ale moze da sie wychwycic, ze jezeli to co tam masz prawda to wtedy wyrzuca warning
+             //(nie wiem, bo nie moge odpalic tego runservera XD)
+               $('.invalid_url').addClass("show");
+               $('.invalid_url').removeClass("hide");
+               $('.invalid_url').addClass("showAlert");
+          }
+        });
+
+        $('.close').click(function(){
+          $('.invalid_url').removeClass("show");
+          $('.invalid_url').addClass("hide");
+        });
+      </script>
+   </body>
+</html>

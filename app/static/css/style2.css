@@ -14,6 +14,7 @@ body {
     background-attachment: fixed;
     background-position: center; 
     background-size: cover;
+    overflow: hidden;
 }
 
 h1 {
@@ -28,24 +29,107 @@ h1 {
     color: #FFFFFF;
     opacity: 1;
 }
+.invalid_url{
+    background:#ffdb9b;
+    padding: 20px 40px;
+    min-width: 420px;
+    position: absolute;
+    right: 0px;
+    top: 10px;
+    overflow: hidden;
+    border-radius:4px;
+    border-left: 8px solid #ffa502;
+}
+.invalid_url.showAlert{
+  opacity: 1;
+  pointer-events: auto;
+}
+.invalid_url.show{
+    animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide{
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(0%);
+    }
+}
+.invalid_url.hide{
+    display: none;
+}
+.invalid_url .fa-circle-exclamation{
+    position:absolute;
+    left: 20px;
+    top:50%;
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
+}
+.invalid_url .msg{
+    padding: 0 20px;
+    font-size: 18px;
+    color: #ce8500;
+}
+
+.invalid_url .msg ul {
+    list-style-type: none;
+    padding: 0 20px;
+    font-size: 18px;
+    color: #ce8500;
+}
+
+.invalid_url .close{
+    position:absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ffd080;
+    padding: 20px 18px;
+}
+.close .fa-times{
+    color: #ce8500;
+    font-size: 22px;
+    line-height: 40px;
+}
+.close:hover{
+    background: #ffc766;
+    cursor: pointer;
+}
+h3 {
+    position:absolute;
+    top: 430px;
+    left: 320px;
+    width: 1300px;
+    height: 82px;
+    text-align: center;
+    font-size: 15px;
+    letter-spacing: 9px;
+    color: #FFFFFF;
+    opacity: 1;
+}
 
 form.search-section {
     position:absolute;
     top: 470px;
     left: 540px;
-    padding-left: 20px;
 }
 
 input {
     position:absolute;
     width: 850px;
     height: 81px;
-
+    padding-left: 50px;
     border: none;
     text-align: left;
     font: normal normal 300 24px/33px "Open Sans";
-    letter-spacing: 3.6px;
-    color: #D4D1E5;;
+    letter-spacing: 4px;
     opacity: 1;
     border-radius: 55px;
 

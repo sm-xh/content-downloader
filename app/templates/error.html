@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %} Error {% endblock %}
+{% block header %}POBIERZ WYBRANY FILM {% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+{% block content %}
+      <div class="invalid_url show">
+      <span class="fa-solid fa-circle-exclamation"></span>
+         <span class="msg"> {{ form.errors.youtube_url }}</span>
+      </div>
+    <div class="container">
+        <div class="URL-add-container">
+            <form class="search-section" action="settings" method="POST">
+                {% csrf_token %}
+                {{ form.youtube_url }}
+                <button type="submit">KONTYNUUJ</button>
+            </form>
+        </div>
+
+      <script>
+       $('button').click(function(){
+         if (1==1){
+             //tutaj masz warunek na wartość w inpucie, zostawiłam jako puste,
+             //ale moze da sie wychwycic, ze jezeli to co tam masz prawda to wtedy wyrzuca warning
+             //(nie wiem, bo nie moge odpalic tego runservera XD)
+               $('.invalid_url').addClass("show");
+               $('.invalid_url').removeClass("hide");
+               $('.invalid_url').addClass("showAlert");
+          }
+        });
+
+        $('.close').click(function(){
+          $('.invalid_url').removeClass("show");
+          $('.invalid_url').addClass("hide");
+        });
+      </script>
+{% endblock %}

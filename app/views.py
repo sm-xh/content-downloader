@@ -58,7 +58,7 @@ def settings(request):
 
     context = {'form': form}
 
-    return render(request, 'index.html', context, status=422)
+    return render(request, 'error.html', context, status=422)
 
 
 def download(request, url=video_url):

@@ -9,7 +9,7 @@ import re
 class YouTubeURLForm(forms.Form):
     youtube_url = forms.URLField(label=False,
                                  widget=forms.TextInput(
-                                     attrs={'placeholder': '\tPaste youtube url.', 'name': 'search'}),
+                                     attrs={'placeholder': 'Paste youtube url.', 'name': 'search'}),
                                  max_length=47)
 
     def clean_youtube_url(self):
