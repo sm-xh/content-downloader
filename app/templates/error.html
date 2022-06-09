@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %} Error {% endblock %}
-{% block header %}POBIERZ WYBRANY FILM {% endblock %}
+{% block header %}DOWNLOAD YOUTUBE VIDEO {% endblock %}
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
@@ -16,16 +16,13 @@
             <form class="search-section" action="settings" method="POST">
                 {% csrf_token %}
                 {{ form.youtube_url }}
-                <button type="submit">KONTYNUUJ</button>
+                <button type="submit">PROCEED</button>
             </form>
         </div>
 
       <script>
        $('button').click(function(){
          if (1==1){
-             //tutaj masz warunek na wartość w inpucie, zostawiłam jako puste,
-             //ale moze da sie wychwycic, ze jezeli to co tam masz prawda to wtedy wyrzuca warning
-             //(nie wiem, bo nie moge odpalic tego runservera XD)
                $('.invalid_url').addClass("show");
                $('.invalid_url').removeClass("hide");
                $('.invalid_url').addClass("showAlert");

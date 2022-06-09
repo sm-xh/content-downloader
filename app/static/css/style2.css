@@ -415,7 +415,7 @@ input:checked + .slider:before {
     margin-left: 8px;
 }
 
-  @media only screen and (max-device-width: 420px) {
+  @media only screen and (max-device-width: 660px) {
 
     h1 {
         top:20%;

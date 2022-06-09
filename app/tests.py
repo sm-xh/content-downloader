@@ -1,8 +1,13 @@
-from django.test import TestCase, SimpleTestCase, Client, RequestFactory
+import time
+
+from django.test import TestCase, SimpleTestCase, Client, RequestFactory, LiveServerTestCase
 from django.urls import reverse, resolve
 from app.views import home, settings, download
 from app.forms import YouTubeDownloadForm, YouTubeURLForm
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.options import Options
+import os
 
 
 # Create your tests here.
@@ -209,17 +214,38 @@ class TestDownloadView(TestCase):
             "attachment; filename=content.zip"
         )
 
-#
-# class EndToEndTest(TestCase):
-#     def setUp(self):
-#         self.driver = webdriver.Firefox()
-#
-#     def test_signup_fire(self):
-#         self.driver.get("http://localhost:8000/add/")
-#         self.driver.find_element_by_id('id_title').send_keys("test title")
-#         self.driver.find_element_by_id('id_body').send_keys("test body")
-#         self.driver.find_element_by_id('submit').click()
-#         self.assertIn("http://localhost:8000/", self.driver.current_url)
-#
-#     def tearDown(self):
-#         self.driver.quit
+
+class TestWholeFlow(LiveServerTestCase):
+
+    def test_homepage(self):
+        options = Options()
+        options.add_experimental_option("prefs", {
+            "download.default_directory": os.path.expanduser('~'),
+            "download.prompt_for_download": False,
+            "download.directory_upgrade": True,
+            "safebrowsing.enabled": True
+        })
+
+        driver = webdriver.Chrome(chrome_options=options)
+        driver.get('http://localhost:8000/')
+
+        assert "Home" in driver.title
+
+        home_yt_input = driver.find_element_by_id("id_youtube_url")
+        home_submit = driver.find_element_by_id("id_button_submit")
+
+        home_yt_input.send_keys("https://www.youtube.com/watch?v=jNQXAC9IVRw")
+        home_submit.click()
+
+        assert "Download the video" in driver.title
+
+        dl_form = driver.find_element_by_id("id_download_form")
+        dl_button = driver.find_element_by_id("id_download_button")
+
+        dl_button.click()
+
+        time.sleep(10)
+
+        assert os.path.exists(os.path.expanduser("~//Me at the zoo.mp4"))
+
+        os.remove(os.path.expanduser("~//Me at the zoo.mp4"))

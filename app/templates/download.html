@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block title %} Download the video {% endblock %}
-{% block header %} OPCJE POBIERANIA {% endblock %}
+{% block header %} DOWNLOAD SETTINGS {% endblock %}
 
 {% block content %}
 <div class="wrapper">
     <div class="title">
     </div>
-    <form class="form" action="download" method="POST">
+    <form class="form" id="id_download_form" action="download" method="POST">
        {% csrf_token %}
         <div class="inputfield">
             <label>FORMAT</label>
@@ -17,22 +17,22 @@
             </div>
          </div> 
         <div class="inputfield">
-          <label>ROZDZIELCZOŚĆ</label>
+          <label>RESOLUTION</label>
           <div class="custom_select">
             {{ form.select_resolution }}
           </div>
        </div> 
       <div class="metadata">
-        <label>METADANE</label>
+        <label>METADATA </label>
         <label class="switch">
             {{ form.select_metadata }}
             <span class="slider round"></span>
           </label>
        </div>
-        <button class="button" type="submit">
+        <button class="button" id="id_download_button" type="submit">
         <div class="content">
           <i class="fa-regular fa-circle-down"></i>
-          <span class="button-text">POBIERZ</span>
+          <span class="button-text">DOWNLOAD</span>
         </div>
       </button>
 
@@ -59,7 +59,7 @@
     setTimeout(()=>{
       button.classList.remove("active");
       document.querySelector("i").classList.replace("fa-circle-down", "fa-circle-check")
-      document.querySelector(".button-text").innerText = "POBRANO";
+      document.querySelector(".button-text").innerText = "DOWNLOADED";
     },6000)
   })
 

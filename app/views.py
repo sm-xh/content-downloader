@@ -138,4 +138,4 @@ def download(request, url=video_url):
 
     context = {'form': form}
 
-    return render(request, 'index.html', contex, status=422)
+    return render(request, 'index.html', context, status=422)

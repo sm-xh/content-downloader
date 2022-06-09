@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300" rel="stylesheet" type="text/css">
     <script src="https://kit.fontawesome.com/70bd267ff8.js" crossorigin="anonymous"></script>
     <title>{% block title %} Home {% endblock %}</title>
-    <h1> {% block header %}POBIERZ WYBRANY FILM {% endblock %} </h1>
+    <h1> {% block header %}DOWNLOAD YOUTUBE VIDEO{% endblock %} </h1>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
             <form class="search-section" action="settings" method="POST">
                 {% csrf_token %}
                 {{ form.youtube_url }}
-                <button type="submit">KONTYNUUJ</button>
+                <button type="submit" id="id_button_submit">PROCEED</button>
             </form>
         </div>
 
