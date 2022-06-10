@@ -10,7 +10,6 @@ test:
     - pip install -r requirements.txt
     - apt install wget
     - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    - dpkg -i ./google-chrome-stable_current_amd64.deb
    
     when: on_success
     services:
@@ -21,6 +20,7 @@ test:
         - python manage.py test app
     only:
         - psmach
+        - main
 deploy:
     image: ruby:latest
     stage: deploy
@@ -33,3 +33,4 @@ deploy:
         url: $HEROKU_APP_HOST
     only:
         - psmach
+        - main

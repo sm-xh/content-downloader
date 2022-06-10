@@ -215,37 +215,37 @@ class TestDownloadView(TestCase):
         )
 
 
-# class TestWholeFlow(LiveServerTestCase):
-#
-#     def test_homepage(self):
-#         options = Options()
-#         options.add_experimental_option("prefs", {
-#             "download.default_directory": os.path.expanduser('~'),
-#             "download.prompt_for_download": False,
-#             "download.directory_upgrade": True,
-#             "safebrowsing.enabled": True
-#         })
-#
-#         driver = webdriver.Chrome(chrome_options=options)
-#         driver.get('http://localhost:8000/')
-#
-#         assert "Home" in driver.title
-#
-#         home_yt_input = driver.find_element_by_id("id_youtube_url")
-#         home_submit = driver.find_element_by_id("id_button_submit")
-#
-#         home_yt_input.send_keys("https://www.youtube.com/watch?v=jNQXAC9IVRw")
-#         home_submit.click()
-#
-#         assert "Download the video" in driver.title
-#
-#         dl_form = driver.find_element_by_id("id_download_form")
-#         dl_button = driver.find_element_by_id("id_download_button")
-#
-#         dl_button.click()
-#
-#         time.sleep(10)
-#
-#         assert os.path.exists(os.path.expanduser("~//Me at the zoo.mp4"))
-#
-#         os.remove(os.path.expanduser("~//Me at the zoo.mp4"))
+class TestWholeFlow(LiveServerTestCase):
+
+    def test_homepage(self):
+        options = Options()
+        options.add_experimental_option("prefs", {
+            "download.default_directory": os.path.expanduser('~'),
+            "download.prompt_for_download": False,
+            "download.directory_upgrade": True,
+            "safebrowsing.enabled": True
+        })
+
+        driver = webdriver.Chrome(chrome_options=options)
+        driver.get('http://localhost:8000/')
+
+        assert "Home" in driver.title
+
+        home_yt_input = driver.find_element_by_id("id_youtube_url")
+        home_submit = driver.find_element_by_id("id_button_submit")
+
+        home_yt_input.send_keys("https://www.youtube.com/watch?v=jNQXAC9IVRw")
+        home_submit.click()
+
+        assert "Download the video" in driver.title
+
+        dl_form = driver.find_element_by_id("id_download_form")
+        dl_button = driver.find_element_by_id("id_download_button")
+
+        dl_button.click()
+
+        time.sleep(10)
+
+        assert os.path.exists(os.path.expanduser("~//Me at the zoo.mp4"))
+
+        os.remove(os.path.expanduser("~//Me at the zoo.mp4"))
